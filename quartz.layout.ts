@@ -7,7 +7,7 @@ export const sharedPageComponents: SharedLayout = {
   header: [],
   afterBody: [
     Component.ConditionalRender({
-      component: Component.RecentNotes({ 
+      component: Component.RecentNotes({
         title: "最近的文章",
         limit: 10,
         filter: (page) => page.slug?.includes("posts") || false,
@@ -17,7 +17,7 @@ export const sharedPageComponents: SharedLayout = {
   ],
   footer: Component.Footer({
     links: {
-      GitHub: "https://github.com/Wybxc/wybxc.github.io",
+      GitHub: "https://github.com/Wybxc/blog",
     },
   }),
 }
