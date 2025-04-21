@@ -14,6 +14,17 @@ export const sharedPageComponents: SharedLayout = {
       }),
       condition: (page) => page.fileData.slug === "index",
     }),
+    Component.Comments({
+      provider: 'giscus',
+      options: {
+        repo: 'Wybxc/blog',
+        repoId: 'R_kgDOObSk8g',
+        category: 'Comments',
+        categoryId: 'DIC_kwDOObSk8s4CpTsb',
+        mapping: 'pathname',
+        inputPosition: 'top',
+      }
+    }),
   ],
   footer: Component.Footer({
     links: {
