@@ -60,7 +60,13 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.ReaderMode() },
       ],
     }),
-    Component.Explorer(),
+    Component.Explorer({
+      sortFn: (a, b) => {
+        const aDate = a?.data?.date ? new Date(a.data.date).getTime() : 0;
+        const bDate = b?.data?.date ? new Date(b.data.date).getTime() : 0;
+        return bDate - aDate;
+      }
+    }),
   ],
   right: [
     Component.Graph(),
@@ -84,7 +90,13 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
       ],
     }),
-    Component.Explorer(),
+    Component.Explorer({
+      sortFn: (a, b) => {
+        const aDate = a?.data?.date ? new Date(a.data.date).getTime() : 0;
+        const bDate = b?.data?.date ? new Date(b.data.date).getTime() : 0;
+        return bDate - aDate;
+      }
+    }),
   ],
   right: [],
 }
