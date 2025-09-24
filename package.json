@@ -95,7 +95,8 @@
     "vfile": "^6.0.3",
     "workerpool": "^9.3.4",
     "ws": "^8.18.3",
-    "yargs": "^18.0.0"
+    "yargs": "^18.0.0",
+    "ziran-compare": "^1.1.2"
   },
   "devDependencies": {
     "@types/d3": "^7.4.3",
