@@ -171,7 +171,9 @@ function ziRanCompare(a, b, options = {}) {
 `;
 
   // Evaluate the ZiRan code to define the ziRanCompare function
-  (0, eval)(ZiRan);
+  if (!window.ziRanCompare) {
+    (0, eval)(ZiRan);
+  }
 
   const aDate = a?.data?.date ? new Date(a.data.date).getTime() : 0;
   const bDate = b?.data?.date ? new Date(b.data.date).getTime() : 0;
