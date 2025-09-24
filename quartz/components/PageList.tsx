@@ -3,6 +3,7 @@ import { QuartzPluginData } from "../plugins/vfile"
 import { Date, getDate } from "./Date"
 import { QuartzComponent, QuartzComponentProps } from "./types"
 import { GlobalConfiguration } from "../cfg"
+import { ziRanCompare } from "ziran-compare"
 
 export type SortFn = (f1: QuartzPluginData, f2: QuartzPluginData) => number
 
@@ -11,7 +12,10 @@ export function byDateAndAlphabetical(cfg: GlobalConfiguration): SortFn {
     // Sort by date/alphabetical
     if (f1.dates && f2.dates) {
       // sort descending
-      return getDate(cfg, f2)!.getTime() - getDate(cfg, f1)!.getTime()
+      const dateDiff = getDate(cfg, f2)!.getTime() - getDate(cfg, f1)!.getTime()
+      if (dateDiff !== 0) {
+        return dateDiff
+      }
     } else if (f1.dates && !f2.dates) {
       // prioritize files with dates
       return -1
@@ -22,7 +26,7 @@ export function byDateAndAlphabetical(cfg: GlobalConfiguration): SortFn {
     // otherwise, sort lexographically by title
     const f1Title = f1.frontmatter?.title.toLowerCase() ?? ""
     const f2Title = f2.frontmatter?.title.toLowerCase() ?? ""
-    return f1Title.localeCompare(f2Title)
+    return ziRanCompare(f1Title, f2Title)
   }
 }
 
@@ -37,7 +41,10 @@ export function byDateAndAlphabeticalFolderFirst(cfg: GlobalConfiguration): Sort
     // If both are folders or both are files, sort by date/alphabetical
     if (f1.dates && f2.dates) {
       // sort descending
-      return getDate(cfg, f2)!.getTime() - getDate(cfg, f1)!.getTime()
+      const dateDiff = getDate(cfg, f2)!.getTime() - getDate(cfg, f1)!.getTime()
+      if (dateDiff !== 0) {
+        return dateDiff
+      }
     } else if (f1.dates && !f2.dates) {
       // prioritize files with dates
       return -1
@@ -48,7 +55,7 @@ export function byDateAndAlphabeticalFolderFirst(cfg: GlobalConfiguration): Sort
     // otherwise, sort lexographically by title
     const f1Title = f1.frontmatter?.title.toLowerCase() ?? ""
     const f2Title = f2.frontmatter?.title.toLowerCase() ?? ""
-    return f1Title.localeCompare(f2Title)
+    return ziRanCompare(f1Title, f2Title)
   }
 }
 

@@ -1,6 +1,5 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
-import { ziRanCompare } from "ziran-compare"
 import { Options as ExpolorerOptions } from "./quartz/components/Explorer"
 
 export const sortFn: ExpolorerOptions["sortFn"] = (a, b) => {
@@ -179,11 +178,10 @@ function ziRanCompare(a, b, options = {}) {
   const bDate = b?.data?.date ? new Date(b.data.date).getTime() : 0;
   if (aDate == bDate) {
     // If dates are the same, sort alphabetically by title
-    return -ziRanCompare(a.displayName, b.displayName);
+    return window.ziRanCompare(a.displayName, b.displayName);
   }
   return bDate - aDate;
 };
-
 
 
 // components shared across all pages
@@ -196,18 +194,6 @@ export const sharedPageComponents: SharedLayout = {
         title: "最近的文章",
         limit: 10,
         filter: (page) => page.slug?.includes("posts") || false,
-        sort: (a, b) => {
-          const aDate = a.dates?.published ? a.dates.published.getTime() : 0
-          const bDate = b.dates?.published ? b.dates.published.getTime() : 0
-          if (aDate == bDate) {
-            // If dates are the same, sort alphabetically by title
-            return -ziRanCompare(
-              a.frontmatter?.title?.toLowerCase() ?? "",
-              b.frontmatter?.title?.toLowerCase() ?? ""
-            );
-          }
-          return bDate - aDate
-        }
       }),
       condition: (page) => page.fileData.slug === "index",
     }),
